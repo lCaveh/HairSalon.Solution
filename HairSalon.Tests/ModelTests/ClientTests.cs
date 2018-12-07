@@ -50,13 +50,14 @@ namespace HairSalon.Tests
       //Arrange
       Client clientOne = new Client("Kaveh","2062060206", 1, 1);
       clientOne.Save();
-      Client editClient = new Client("Afshin","2062060206", 1, 1);
+      Client editClient = new Client("Afshin","2062060207", 1, 1);
 
       //Act
-      clientOne.Edit("Afshin");
+      clientOne.Edit("Afshin","2062060207");
 
       //Assert
-      Assert.AreEqual(clientOne, editClient);
+      Assert.AreEqual(clientOne.GetName(), editClient.GetName());
+      Assert.AreEqual(clientOne.GetPhone(), editClient.GetPhone());
     }
 
     [TestMethod]

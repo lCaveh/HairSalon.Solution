@@ -175,6 +175,11 @@ namespace HairSalon.Models
         return (idEquality && nameEquality && phoneEquality && stylistEquality);
       }
     }
+    public override int GetHashCode()
+    {
+      string combinedHash = this.GetId() + this.GetName() + this.GetPhone() + this.GetStylistId();
+      return combinedHash.GetHashCode();
+    }
 
     public void Save()
     {
@@ -203,28 +208,32 @@ namespace HairSalon.Models
       }
     }
 
-    public void Edit(string newName)
+    public void Edit(string newName, string newPhone)
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"UPDATE clients SET name = @newName WHERE id = @searchId;";
+      cmd.CommandText = @"UPDATE clients SET name = @newName, phone = @newPhone WHERE id = @searchId;";
       MySqlParameter searchId = new MySqlParameter();
       searchId.ParameterName = "@searchId";
       searchId.Value = _id;
       cmd.Parameters.Add(searchId);
       MySqlParameter name = new MySqlParameter();
       name.ParameterName = "@newName";
-      name.Value = _name;
+      name.Value = newName;
       cmd.Parameters.Add(name);
+      MySqlParameter phone = new MySqlParameter();
+      phone.ParameterName = "@newPhone";
+      phone.Value = newPhone;
+      cmd.Parameters.Add(phone);
       cmd.ExecuteNonQuery();
       _name = newName;
+      _phone = newPhone;
       conn.Close();
       if (conn != null)
       {
         conn.Dispose();
       }
     }
-
   }
 }

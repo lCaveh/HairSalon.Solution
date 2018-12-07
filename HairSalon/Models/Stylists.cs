@@ -131,7 +131,11 @@ namespace HairSalon.Models
         return (idEquality && nameEquality);
       }
     }
-
+    public override int GetHashCode()
+    {
+      string combinedHash = this.GetId() + this.GetName();
+      return combinedHash.GetHashCode();
+    }
     public void Save()
     {
       MySqlConnection conn = DB.Connection();
