@@ -10,6 +10,7 @@
   @foreach (var client in Model)
   {
     <h3><a href='/stylists/@stylist.GetId()/clients/@client.GetId()'>@client.GetName() </a> </h3>
+    <p>Phone No. : @client.GetPhone()</p>
   }
   <p><a href='/'>Home Page</a></p>
 </div>
