@@ -8,7 +8,9 @@
 _A hair salon website that uses a SQL database to keep track of all the stylists and clients. The user can add some stylists and after that, add some client for each stylist. The user also can delete any client or stylist from the list or edit client's name and phone number._
 
 
-## Specifications
+## How To use MySql
+
+_$ Mysql -uroot -uproot -P(insert path) $ CREATE DATABASE (name of database project); $ USE (name of database project); $ CREATE TABLE categories (id serial PRIMARY KEY, name VARCHAR(255)); $ CREATE TABLE tasks (id serial PRIMARY KEY, description VARCHAR(255));_
 
 
 
