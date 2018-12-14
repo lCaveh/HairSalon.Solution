@@ -18,14 +18,19 @@ namespace HairSalon.Controllers
     [HttpGet("/stylists/new")]
     public ActionResult New()
     {
-      return View();
+      List<Speciality> allSpecialities = Speciality.GetAll();
+      return View(allSpecialities);
     }
 
     [HttpPost("/stylists")]
-    public ActionResult Create(string stylistName)
+    public ActionResult Create(string stylistName, List<int> stylistSpecialities)
     {
-      Stylist newStylist = new Stylist(stylistName);
-      newStylist.Save();
+      Stylist stylist = new Stylist(stylistName);
+      stylist.Save();
+      foreach (var specialityId in stylistSpecialities)
+      {
+        stylist.AddSpeciality(specialityId);
+      }
 
       List<Stylist> allStylists = Stylist.GetAll();
       return View("Index", allStylists);
@@ -37,8 +42,10 @@ namespace HairSalon.Controllers
       Dictionary<string, object> model = new Dictionary<string, object>();
       Stylist selectedStylist = Stylist.Find(id);
       List<Client> stylistClients = selectedStylist.GetClients();
+      List<Speciality> stylistSpecialities = selectedStylist.GetSpecialities();
       model.Add("stylist", selectedStylist);
       model.Add("clients", stylistClients);
+      model.Add("specialities", stylistSpecialities);
       return View(model);
     }
 

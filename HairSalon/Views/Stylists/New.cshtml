@@ -10,6 +10,13 @@
 <form action="/stylists" method="post">
   <label for="stylistName">Stylist name</label>
   <input id="stylistName" name="stylistName" type="text">
+  <div class="form-group">
+  <p>Please Select all specialities about this stylist:</p>
+  @foreach (var speciality in Model)
+  {
+    <input type="checkbox" name="stylistSpecialities" value=@speciality.GetId()> @speciality.GetName()<br>
+  }
+  </div>
   <button type="submit">Add</button>
 </form>
 

@@ -173,5 +173,59 @@ namespace HairSalon.Models
         conn.Dispose();
       }
     }
+    public void AddSpeciality(int specialityId)
+    {
+
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"INSERT INTO specialists (speciality_id, stylist_id) VALUES (@specialitiesId, @stylistId);";
+
+        MySqlParameter stylist_id = new MySqlParameter();
+        stylist_id.ParameterName = "@stylistId";
+        stylist_id.Value = _id;
+        cmd.Parameters.Add(stylist_id);
+
+        MySqlParameter speciality_id = new MySqlParameter();
+        speciality_id.ParameterName = "@specialitiesId";
+        speciality_id.Value = specialityId;
+        cmd.Parameters.Add(speciality_id);
+        cmd.ExecuteNonQuery();
+        conn.Close();
+        if (conn != null)
+        {
+            conn.Dispose();
+        }
+    }
+    public List<Speciality> GetSpecialities()
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"SELECT specialities.* FROM stylists
+          JOIN specialists ON (stylists.id = specialists.stylist_id)
+          JOIN specialities ON (specialists.speciality_id = specialities.id)
+          WHERE stylists.id = @stylistId;";
+      MySqlParameter stylistIdParameter = new MySqlParameter();
+      stylistIdParameter.ParameterName = "@stylistId";
+      stylistIdParameter.Value = _id;
+      cmd.Parameters.Add(stylistIdParameter);
+      MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+      List<Speciality> specialities = new List<Speciality>{};
+      while(rdr.Read())
+      {
+      int specialityId = rdr.GetInt32(0);
+      string specialityName = rdr.GetString(1);
+
+      Speciality newSpeciality = new Speciality(specialityName, specialityId);
+      specialities.Add(newSpeciality);
+      }
+      conn.Close();
+      if (conn != null)
+      {
+      conn.Dispose();
+      }
+      return specialities;
+    }
   }
 }
