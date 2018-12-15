@@ -21,6 +21,8 @@ namespace HairSalon.Controllers
       return View(allStylistClients);
     }
 
+
+
     [HttpGet("/stylists/{stylistId}/clients/{clientId}")]
     public ActionResult Show(int stylistId, int clientId)
     {
@@ -32,7 +34,7 @@ namespace HairSalon.Controllers
       return View(model);
     }
 
-    [HttpPost("/clients/delete")]
+    [HttpGet("/clients/delete")]
     public ActionResult DeleteAll()
     {
       Client.ClearAll();

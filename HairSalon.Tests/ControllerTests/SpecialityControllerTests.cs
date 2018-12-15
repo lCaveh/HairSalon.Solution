@@ -46,6 +46,39 @@ namespace HairSalon.Tests
             //Assert
             Assert.IsInstanceOfType(view, typeof(ViewResult));
         }
+        public void SecondIndex_ReturnsCorrectActionType_ViewResult()
+        {
+            //Arrange
+            SpecialitiesController controller = new SpecialitiesController();
 
+            //Act
+            IActionResult view = controller.Index("Kaveh");
+
+            //Assert
+            Assert.IsInstanceOfType(view, typeof(ViewResult));
+        }
+                [TestMethod]
+        public void SecondShow_ReturnsCorrectActionType_ViewResult()
+        {
+            //Arrange
+            SpecialitiesController controller = new SpecialitiesController();
+
+            //Act
+            IActionResult view = controller.Show("Kaveh",1);
+
+            //Assert
+            Assert.IsInstanceOfType(view, typeof(ViewResult));
+        }
+        public void Edit_ReturnsCorrectActionType_ViewResult()
+        {
+            //Arrange
+            SpecialitiesController controller = new SpecialitiesController();
+
+            //Act
+            IActionResult view = controller.Edit(1);
+
+            //Assert
+            Assert.IsInstanceOfType(view, typeof(ViewResult));
+        }
     }
 }

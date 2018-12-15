@@ -1,11 +1,11 @@
 # _Word Counter_
 
-#### _A C# program for Epicodus, 11.30.2018_
+#### _A C# program for Epicodus, 12.14.2018_
 
 #### By _**Kaveh Saleminejad**_
 
 ## Description
-_A hair salon website that uses a SQL database to keep track of all the stylists and clients. The user can add some stylists and after that, add some client for each stylist. The user also can delete any client or stylist from the list or edit client's name and phone number._
+_A hair salon website that uses a SQL database to keep track of all the specialities,stylists and clients. The user can add some stylists and choose some specialities for them. After that, add some client for each stylist. The user also can delete any client or stylist from the list or edit client's name and phone number. The user can also Delete all clients or stylists as well._
 
 
 ## How To use MySql

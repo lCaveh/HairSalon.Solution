@@ -17,6 +17,7 @@ namespace HairSalon.Tests
     {
       Client.ClearAll();
       Stylist.ClearAll();
+      Speciality.ClearAll();
     }
 
     [TestMethod]
@@ -68,6 +69,41 @@ namespace HairSalon.Tests
 
       //Assert
       Assert.AreEqual(notFound, defaultStylist);
+    }
+
+    [TestMethod]
+    public void AddSpeciality_SpecialityIsAddedToJoinTable_True()
+    {
+      //Arrange
+      Speciality specialityOne = new Speciality("HairCutting");
+      specialityOne.Save();
+      Stylist stylistOne = new Stylist("Kaveh");
+      stylistOne.Save();
+
+      //Act
+      stylistOne.AddSpeciality(specialityOne.GetId());
+      List<Speciality> allSpecialitys = stylistOne.GetSpecialities();
+      int count = allSpecialitys.Count;
+
+      //Assert
+      Assert.AreEqual(1, count);
+    }
+  
+    [TestMethod]
+    public void Stylist_EditedStylistHasDifferentValue_True()
+    {
+      //Arrange
+      Stylist stylistOne = new Stylist ("Kaveh");
+      Stylist stylistTwo = new Stylist ("Afshin");
+      stylistOne.Save();
+      int id = stylistOne.GetId();
+
+      //Act
+      stylistOne.Edit("Afshin");
+      Stylist foundStylist = Stylist.Find(id);
+
+      //Assert
+      Assert.AreEqual(stylistTwo.GetName(), foundStylist.GetName());
     }
   }
 }

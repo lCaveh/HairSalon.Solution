@@ -12,7 +12,7 @@
   @foreach (var speciality in Model)
   {
     <h3><a href='/specialities/@speciality.GetId()'>@speciality.GetName()</a></h3>
-    <p><a href='/specialities/@speciality.GetId()/delete'>Delete This Speciality</a></p>
+    <p><a href='/specialities/@speciality.GetId()/edit'>Edit This Speciality</a></p>
     <br>
   }
 </div>

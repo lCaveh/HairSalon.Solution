@@ -46,6 +46,64 @@ namespace HairSalon.Tests
             //Assert
             Assert.IsInstanceOfType(view, typeof(ViewResult));
         }
+        [TestMethod]
+        public void Delete_ReturnsCorrectActionType_ViewResult()
+        {
+            //Arrange
+            StylistsController controller = new StylistsController();
 
+            //Act
+            IActionResult view = controller.Delete(1);
+
+            //Assert
+            Assert.IsInstanceOfType(view, typeof(ViewResult));
+        }
+        public void SecondDelete_ReturnsCorrectActionType_ViewResult()
+        {
+            //Arrange
+            StylistsController controller = new StylistsController();
+
+            //Act
+            IActionResult view = controller.Delete(1,1);
+
+            //Assert
+            Assert.IsInstanceOfType(view, typeof(ViewResult));
+        }
+        [TestMethod]
+        public void SecondShow_ReturnsCorrectActionType_ViewResult()
+        {
+            //Arrange
+            StylistsController controller = new StylistsController();
+
+            //Act
+            IActionResult view = controller.Show("Kaveh",1);
+
+            //Assert
+            Assert.IsInstanceOfType(view, typeof(ViewResult));
+        }
+        [TestMethod]
+        public void Edit_ReturnsCorrectActionType_ViewResult()
+        {
+            //Arrange
+            StylistsController controller = new StylistsController();
+
+            //Act
+            IActionResult view = controller.Edit(1);
+
+            //Assert
+            Assert.IsInstanceOfType(view, typeof(ViewResult));
+        }
+        [TestMethod]
+        public void DeleteAll_ReturnsCorrectActionType_ViewResult()
+        {
+            //Arrange
+            StylistsController controller = new StylistsController();
+
+            //Act
+            IActionResult view = controller.DeleteAll();
+
+            //Assert
+            Assert.IsInstanceOfType(view, typeof(ViewResult));
+        }      
     }
 }

@@ -70,5 +70,16 @@ namespace HairSalon.Tests
             //Assert
             Assert.IsInstanceOfType(view, typeof(ViewResult));
         }
+        public void DeleteAll_ReturnsCorrectActionType_ViewResult()
+        {
+            //Arrange
+            ClientsController controller = new ClientsController();
+
+            //Act
+            IActionResult view = controller.DeleteAll();
+
+            //Assert
+            Assert.IsInstanceOfType(view, typeof(ViewResult));
+        }
     }
 }

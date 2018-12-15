@@ -16,6 +16,7 @@ namespace HairSalon.Tests
     public void Dispose()
     {
       Client.ClearAll();
+      Stylist.ClearAll();
       Speciality.ClearAll();
     }
 
@@ -51,23 +52,6 @@ namespace HairSalon.Tests
 
       //Assert
       Assert.AreEqual(specialityOne, foundSpeciality);
-    }
-
-    [TestMethod]
-    public void Speciality_SpecialityDeletedFromDB_True()
-    {
-      //Arrange
-      Speciality specialityOne = new Speciality("Hair colorist");
-      specialityOne.Save();
-      int id = specialityOne.GetId();
-      Speciality defaultSpeciality = new Speciality("", 0);
-
-      //Act
-      Speciality.DeleteSpeciality(id);
-      Speciality notFound = Speciality.Find(id);
-
-      //Assert
-      Assert.AreEqual(notFound, defaultSpeciality);
     }
   }
 }

@@ -12,9 +12,13 @@
   @foreach (var stylist in Model)
   {
     <h3><a href='/stylists/@stylist.GetId()'>@stylist.GetName()</a></h3>
+    <p><a href='/stylists/@stylist.GetId()/edit'>Edit This Stylist</a></p>
     <p><a href='/stylists/@stylist.GetId()/delete'>Delete This Stylist</a></p>
     <br>
   }
 
 </div>
 <p><a href='/stylists/new' class="btn btn-success">Add a new stylists</a></p>
+<p><a href='/stylists/delete' class="btn btn-danger">Delete All Stylists</a></p>
+<p><a href='/clients/delete' class="btn btn-danger">Delete All Clients</a></p>
+

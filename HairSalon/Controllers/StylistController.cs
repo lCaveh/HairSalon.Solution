@@ -49,6 +49,21 @@ namespace HairSalon.Controllers
       return View(model);
     }
 
+    [HttpPost("/stylists/{stylistId}/clients")]
+    public ActionResult Create(string clientName, string clientPhone, int stylistId)
+    {
+      Dictionary<string, object> model = new Dictionary<string, object>();
+      Stylist foundStylist = Stylist.Find(stylistId);
+      Client newClient = new Client(clientName, clientPhone, stylistId);
+      newClient.Save();
+      List<Client> stylistClients = foundStylist.GetClients();
+      List<Speciality> stylistSpecialities = foundStylist.GetSpecialities();
+      model.Add("clients", stylistClients);
+      model.Add("stylist", foundStylist);
+      model.Add("specialities", stylistSpecialities);
+      return View("Show", model);
+    }
+
     [HttpGet("/stylists/{id}/delete")]
      public ActionResult Delete(int id)
     {
@@ -69,21 +84,6 @@ namespace HairSalon.Controllers
 
     }
 
-
-    //This one creates new Clients within a given Stylist, not new Stylists:
-    [HttpPost("/stylists/{stylistId}/clients")]
-    public ActionResult Create(string clientName, string clientPhone, int stylistId)
-    {
-      Dictionary<string, object> model = new Dictionary<string, object>();
-      Stylist foundStylist = Stylist.Find(stylistId);
-      Client newClient = new Client(clientName, clientPhone, stylistId);
-      newClient.Save();
-      List<Client> stylistClients = foundStylist.GetClients();
-      model.Add("clients", stylistClients);
-      model.Add("stylist", foundStylist);
-      return View("Show", model);
-    }
-
     [HttpGet("/stylists/{stylistId}/clients/{clientId}/delete")]
      public ActionResult Delete(int stylistId, int clientId)
      {
@@ -98,7 +98,44 @@ namespace HairSalon.Controllers
 
      }
 
+    [HttpPost("/stylists/{id}")]
+    public ActionResult Show(string newName,int id)
+    {
+      Stylist selectedStylist = Stylist.Find(id);
+      selectedStylist.Edit(newName);
+      Dictionary<string,object> model= new Dictionary<string,object>();
+      List<Client> stylistClients = selectedStylist.GetClients();
+      List<Speciality> stylistSpecialities = selectedStylist.GetSpecialities();
+      model.Add("stylist", selectedStylist);
+      model.Add("clients", stylistClients);
+      model.Add("specialities", stylistSpecialities);
+      return View(model);
+    }
+    
+    [HttpGet("/stylists/{id}/edit")]
+    public ActionResult Edit(int id)
+    {
+      Stylist foundStylist = Stylist.Find(id);
+      return View(foundStylist);
+    }
 
+    [HttpGet("/stylists/delete")]
+    public ActionResult DeleteAll()
+    {
+
+      List<Stylist> stylists = Stylist.GetAll();
+      foreach (var stylist in stylists)
+      {
+        List<Client> stylistClients = stylist.GetClients();
+
+        foreach(Client client in stylistClients)
+        {
+          Client.DeleteClients(client.GetId());
+        }
+      }
+      Stylist.ClearAll();
+      return View();
+    }
 
   }
 }
