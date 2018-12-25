@@ -21,7 +21,18 @@ namespace HairSalon.Controllers
       return View(allStylistClients);
     }
 
-
+    [HttpGet("/clients/showall")]
+    public ActionResult ShowAll()
+    {
+      List<Client> allClients= new List<Client>();
+      List<Stylist> allStylists = Stylist.GetAll();
+      foreach (var stylist in allStylists)
+      {
+        List<Client> allStylistClients = Client.GetAllClients(stylist.GetId());
+        allClients.AddRange(allStylistClients);
+      }
+      return View(allClients);
+    }
 
     [HttpGet("/stylists/{stylistId}/clients/{clientId}")]
     public ActionResult Show(int stylistId, int clientId)
